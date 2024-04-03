@@ -385,6 +385,7 @@ const triggerWebhook = async (status: string) => {
           />
         </div>
         
+        
         <div className="flex items-center justify-center w-full h-full col-span-1 lg:col-span-7">
           <div className="flex flex-col w-full max-w-xl gap-4 p-12 rounded-xl lg:border lg:border-gray-400 lg:dark:border-gray-800">
             <div className="neon-text">
