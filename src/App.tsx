@@ -374,7 +374,7 @@ const triggerWebhook = async (status: string) => {
   //End SDC Code Add first header lg:flex
 
   return (
-    <div className="w-screen">
+    <div className="mx-auto max-w-md">
       <ConnectWallet className=" justify-center "  />
       <div className="grid h-screen grid-cols-1 lg:grid-cols-12">
         <div className="items-center justify-center hidden w-full h-full lg:col-span-5 lg:hidden lg:px-12">
