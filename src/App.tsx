@@ -14,7 +14,7 @@ import {
   Web3Button,
 } from "@thirdweb-dev/react";
 import { BigNumber, utils } from "ethers";
-import { useMemo, useState } from "react";
+import { useMemo, useState,useEffect } from "react";
 import { HeadingImage } from "./components/HeadingImage";
 import { PoweredBy } from "./components/PoweredBy";
 import { useToast } from "./components/ui/use-toast";
@@ -29,9 +29,10 @@ import {
 import './styles/custom.css'; 
 
 
+
+
 const urlParams = new URL(window.location.toString()).searchParams;
-const contractAddressFromURL = urlParams.get("contract");
-const contractAddress = contractAddressFromURL || window.contractAddress || contractConst || "";
+const initialContractAddress = urlParams.get("contract") || window.contractAddress || contractConst;
 
 const primaryColor =
   urlParams.get("primaryColor") || primaryColorConst || undefined;
@@ -49,6 +50,22 @@ const colors = {
 } as const;
 
 export default function Home() {
+  const [contractAddress, setContractAddress] = useState(initialContractAddress);
+
+  useEffect(() => {
+    const handleWindowChange = () => {
+      const newContractAddress = window.contractAddress || contractConst;
+      setContractAddress(newContractAddress);
+    };
+
+    window.addEventListener('contractAddressChange', handleWindowChange);
+
+    return () => {
+      window.removeEventListener('contractAddressChange', handleWindowChange);
+    };
+  }, []);
+
+
   const contractQuery = useContract(contractAddress);
   const contractMetadata = useContractMetadata(contractQuery.contract);
   const { toast } = useToast();
