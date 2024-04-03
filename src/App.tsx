@@ -26,6 +26,9 @@ import {
   themeConst,
 } from "./consts/parameters";
 
+import './styles/custom.css'; 
+
+
 const urlParams = new URL(window.location.toString()).searchParams;
 const contractAddress = urlParams.get("contract") || contractConst || "";
 const primaryColor =
@@ -300,18 +303,105 @@ export default function Home() {
     );
   }
 
+  //New code SDC
+  // State for email and referral ID
+  const [email, setEmail] = useState('');
+  const referralID = urlParams.get('referralID') || '';
+
+  // Validation for the email
+  const isEmailValid = useMemo(() => {
+    return email !== '' && email.includes('@') && email.includes('.');
+  }, [email]);
+
+  
+
+  // Function to handle the webhook logic
+const triggerWebhook = async (status: string) => {
+  const webhookUrl = 'https://hook.eu2.make.com/u1seiv8alwhbizttrdmlqbsqhd9rbws2'; // Replace with your actual webhook URL
+  const data = {
+      status,
+      email,
+      referralID,
+      walletAddress: address,
+  };
+
+  try {
+      const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+      }
+
+      // You might only need to check the response status, not the JSON content
+      console.log('Webhook call successful, status:', response.status);
+
+      // If you really need to read the response (and if it's indeed JSON), then parse it
+      // But if you don't expect a JSON response, you could just log a success message or handle the status code
+      const text = await response.text(); // Get the raw text response
+      console.log('Raw webhook response:', text);
+  } catch (error) {
+      console.error('Webhook error:', error);
+  }
+};
+
+  // Modify existing onSuccess and onError functions
+  const handleSuccess = () => {
+    toast({
+      title: 'Successfully minted',
+      description: 'The NFT has been transferred to your wallet',
+      duration: 5000,
+      className: 'bg-green-500',
+    });
+    triggerWebhook('success');
+  };
+
+  const handleError = (err: any) => {
+    console.error(err);
+    console.log({ err });
+    toast({
+      title: 'Failed to mint drop',
+      description: err.reason || '',
+      duration: 9000,
+      variant: 'destructive',
+    });
+    triggerWebhook('failure');
+  };
+
+  //End SDC Code Add first header lg:flex
+
   return (
-    <div className="w-screen min-h-screen">
-      <ConnectWallet className="!absolute !right-4 !top-4" theme={theme} />
+    <div className="w-screen">
+      <ConnectWallet className=" justify-center "  />
       <div className="grid h-screen grid-cols-1 lg:grid-cols-12">
-        <div className="items-center justify-center hidden w-full h-full lg:col-span-5 lg:flex lg:px-12">
+        <div className="items-center justify-center hidden w-full h-full lg:col-span-5 lg:hidden lg:px-12">
           <HeadingImage
             src={contractMetadata.data?.image || firstNft?.metadata.image || ""}
             isLoading={isLoading}
+
           />
         </div>
+        
         <div className="flex items-center justify-center w-full h-full col-span-1 lg:col-span-7">
           <div className="flex flex-col w-full max-w-xl gap-4 p-12 rounded-xl lg:border lg:border-gray-400 lg:dark:border-gray-800">
+            <div className="neon-text">
+                  {contractMetadata.isLoading ? (
+                    <div
+                      role="status"
+                      className="space-y-8 animate-pulse md:flex md:items-center md:space-x-8 md:space-y-0"
+                    >
+                      <div className="w-full">
+                        <div className="w-48 h-8 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                      </div>
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    contractMetadata.data?.name
+                  )}
+                </div>
             <div className="flex w-full mt-8 xs:mb-8 xs:mt-0 lg:hidden">
               <HeadingImage
                 src={contractMetadata.data?.image || firstNft?.metadata.image || ""}
@@ -339,21 +429,7 @@ export default function Home() {
                   </span>
                 </p>
               )}
-              <h1 className="text-2xl font-bold line-clamp-1 xs:text-3xl lg:text-4xl">
-                {contractMetadata.isLoading ? (
-                  <div
-                    role="status"
-                    className="space-y-8 animate-pulse md:flex md:items-center md:space-x-8 md:space-y-0"
-                  >
-                    <div className="w-full">
-                      <div className="w-48 h-8 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </div>
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                ) : (
-                  contractMetadata.data?.name
-                )}
-              </h1>
+              
               {contractMetadata.data?.description ||
                 contractMetadata.isLoading ? (
                   <div className="text-gray-500 line-clamp-2">
@@ -374,6 +450,26 @@ export default function Home() {
                 </div>
               ) : null}
             </div>
+
+            <div className="text-gray-500 line-clamp-2">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              className="bg-white text-black rounded-lg border-gray-300 px-4 py-2"
+              style={{
+                backgroundColor: 'white', // Match mint button background
+                color: 'black', // Match mint button text color
+                borderWidth: '1px', // If your button has a border, match that
+                borderColor: '#ef7d29', // Match mint button border color
+                borderRadius: '0.5rem', // Match mint button border radius, for rounded edges
+                padding: '0.5rem 1rem', // Match mint button padding
+              }}
+            />
+              
+            </div>
+            
             <div className="flex w-full gap-4">
               {dropNotReady ? (
                 <span className="text-red-500">
@@ -439,25 +535,8 @@ export default function Home() {
                       theme={theme}
                       action={(cntr) => cntr.erc721.claim(quantity)}
                       isDisabled={!canClaim || buttonLoading}
-                      onError={(err) => {
-                        console.error(err);
-                        console.log({ err });
-                        toast({
-                          title: "Failed to mint drop",
-                          description: (err as any).reason || "",
-                          duration: 9000,
-                          variant: "destructive",
-                        });
-                      }}
-                      onSuccess={() => {
-                        toast({
-                          title: "Successfully minted",
-                          description:
-                            "The NFT has been transferred to your wallet",
-                          duration: 5000,
-                          className: "bg-green-500",
-                        });
-                      }}
+                      onError={handleError}
+                      onSuccess={handleSuccess}
                     >
                       {buttonLoading ? (
                         <div role="status">

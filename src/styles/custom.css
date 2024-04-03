@@ -1,0 +1,79 @@
+
+@keyframes neon-flashing {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow:
+      0 0 4px #ff7f50,
+      0 0 10px #ff7f50,
+      0 0 20px #ff7f50,
+      0 0 40px #ff7f50,
+      0 0 80px #ff7f50,
+      0 0 90px #ff7f50,
+      0 0 100px #ff7f50,
+      0 0 150px #ff7f50;
+    color: #ff7f50;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+    color: #ef7d29; /* Dark color to give a 'turned off' neon effect */
+  }
+}
+
+.neon-text {
+  font-size: 28px;
+  font-family: Exo, Exo, Roboto, Arial, sans-serif;
+  animation: neon-flashing 1.5s infinite;
+  margin: 0px;
+  color: #ff7f50; /* Burnt orange color */
+}
+
+/* General styles for the nk-diamond parts and buttons */
+nk-diamond ::part(wallet-btn),
+nk-drop-mint-button {
+	border: 1px solid #ef7d29;
+    font-family: Exo,Roboto,Arial;
+    font-size: Small;
+    color: white;
+    display: inline-block;
+    margin: 5px;
+    background-color: black; /* Black background color */
+}
+
+/* Styling for the container that holds wallet and mint elements */
+.wallet-mint-container {
+    border: 1px solid #ef7d29; /* Orange border color */
+    border-radius: 5px; /* Rounded corners with 5px radius */
+    padding: 10px; /* Padding around the content */
+    display: inline-block; /* Adjust the display to manage layout */
+}
+
+/* Specific styles for text elements and other components */
+nk-diamond ::part(mint-btn),
+nk-diamond ::part(mint-dropdown-icon),
+nk-diamond ::part(mint-text),
+nk-diamond nk-drop-supply-text {
+    font-size: Small;
+    color: white;
+}
+
+nk-drop-price-text {
+  font-size: 24px;
+  font-family: Exo, Exo, Roboto, Arial, sans-serif;
+  animation: neon-flashing 1.5s infinite;
+  color: #ff7f50; /* Burnt orange color */
+}
+.nk-price-container {
+  font-size: 24px;
+  font-family: 'Exo', 'Roboto', 'Arial', sans-serif;
+  animation: neon-flashing 1.5s infinite;
+  color: #ff7f50; /* Burnt orange color */
+}
+
+/* Ensure animation is defined if it's going to be used */
+@keyframes neon-flashing {
+  0%, 100% {
+    text-shadow: 0 0 10px #ff7f50, 0 0 20px #ff7f50;
+  }
+  50% {
+    text-shadow: 0 0 20px #ff4500, 0 0 30px #ff4500;
+  }
+}
