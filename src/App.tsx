@@ -396,7 +396,7 @@ const triggerWebhook = async (status: string) => {
     <div className="container">
      
       
-          <div className="flex flex-col w-full max-w-xl gap-4 p-12 rounded-xl lg:border lg:border-gray-400 lg:dark:border-gray-800">
+          <div className="flex flex-col gap-4  p-10  ">
 
             <div className="flex flex-col gap-2 xs:gap-4">
               {isLoading ? (
@@ -454,7 +454,7 @@ const triggerWebhook = async (status: string) => {
               ) : (
                     <div className="flex flex-col w-full gap-4">
                       <div className="flex flex-col w-full gap-4 lg:flex-row lg:items-center lg:gap-4 ">
-                        <div className="flex w-full px-2 border border-gray-400 rounded-lg h-11 dark:border-gray-800 md:w-full">
+                        <div className="flex w-full px-2 border border-gray-400 rounded-lg h-11 dark:border-gray-800 md:w-full ">
                       <button
                         onClick={() => {
                           const value = quantity - 1;
@@ -466,12 +466,12 @@ const triggerWebhook = async (status: string) => {
                             setQuantity(value);
                           }
                         }}
-                            className="flex items-center justify-center h-full px-2 text-2xl text-center rounded-l-md disabled:cursor-not-allowed disabled:text-gray-500 dark:text-white dark:disabled:text-gray-600"
+                            className="flex items-center justify-center h-full px-2 text-2xl text-center rounded-l-md disabled:cursor-not-allowed disabled:text-gray-500 dark:text-white dark:disabled:text-gray-600 burnt-orange-border "
                         disabled={isSoldOut || quantity - 1 < 1}
                       >
                         -
                       </button>
-                          <p className="flex items-center justify-center w-full h-full font-mono text-center dark:text-white lg:w-full">
+                          <p className="flex items-center justify-center w-full h-full font-mono text-center dark:text-white lg:w-full burnt-orange-border ">
                         {!isLoading && isSoldOut ? "Sold Out" : quantity}
                       </p>
                       <button
@@ -486,7 +486,7 @@ const triggerWebhook = async (status: string) => {
                           }
                         }}
                         className={
-                          "flex h-full items-center justify-center rounded-r-md px-2 text-center text-2xl disabled:cursor-not-allowed disabled:text-gray-500 dark:text-white dark:disabled:text-gray-600"
+                          "flex h-full items-center justify-center rounded-r-md px-2 text-center text-2xl disabled:cursor-not-allowed disabled:text-gray-500 dark:text-white dark:disabled:text-gray-600 burnt-orange-border "
                         }
                         
                         disabled={isSoldOut || quantity + 1 > maxClaimable}

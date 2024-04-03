@@ -92,6 +92,7 @@ nk-drop-price-text {
   padding: 0 0.5rem; /* px-2 */
   border-radius: 0.5rem; /* rounded-lg */
   text-align: center;
+  color :#ef7d29;
 }
 
 .button-disabled {
@@ -115,4 +116,8 @@ nk-drop-price-text {
   height: 100%;
   align-items: center; /* For use within a flex container */
   justify-content: center; /* For use within a flex container */
+}
+.burnt-orange-border {
+  border: 1px solid #ef7d29; /* Burnt orange */
+  color :#ef7d29;
 }

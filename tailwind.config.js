@@ -25,7 +25,7 @@ module.exports = {
         input: "#f0f0f0",
         black: "#000000",
         white: "#ffffff",
-        orange: "#ff7f50", // Your custom orange color
+        orange: "#ef7d29", // Your custom orange color
         // Add other colors as needed
       },
       borderRadius: {
@@ -36,7 +36,7 @@ module.exports = {
         large: "10px",
       },
       fontFamily: {
-        exo2: ["Exo", "Roboto", "Arial", ...fontFamily.sans],
+        sans: ["Exo", "Roboto", "Arial", ...fontFamily.sans],
       },
       keyframes: {
         "neon-flashing": {
