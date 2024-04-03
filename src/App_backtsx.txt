@@ -406,7 +406,27 @@ const triggerWebhook = async (status: string) => {
 
         <div className="flex items-center justify-center w-full h-full col-span-1 lg:col-span-7">
           <div className="flex flex-col w-full max-w-xl gap-4 p-12 rounded-xl lg:border lg:border-gray-400 lg:dark:border-gray-800">
-            
+            <div className="neon-text">
+                  {contractMetadata.isLoading ? (
+                    <div
+                      role="status"
+                      className="space-y-8 animate-pulse md:flex md:items-center md:space-x-8 md:space-y-0"
+                    >
+                      <div className="w-full">
+                        <div className="w-48 h-8 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                      </div>
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    contractMetadata.data?.name
+                  )}
+                </div>
+            <div className="nftimg">
+              <HeadingImage
+                src={contractMetadata.data?.image || firstNft?.metadata.image || ""}
+                isLoading={isLoading}
+              />
+            </div>
 
             <div className="flex flex-col gap-2 xs:gap-4">
               {isLoading ? (
@@ -429,7 +449,25 @@ const triggerWebhook = async (status: string) => {
                 </p>
               )}
               
-              
+              {contractMetadata.data?.description ||
+                contractMetadata.isLoading ? (
+                  <div className="text-gray-500 line-clamp-2">
+                  {contractMetadata.isLoading ? (
+                    <div
+                      role="status"
+                        className="space-y-8 animate-pulse md:flex md:items-center md:space-x-8 md:space-y-0"
+                    >
+                      <div className="w-full">
+                        <div className="mb-2.5 h-2 max-w-[480px] rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                        <div className="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                      </div>
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    contractMetadata.data?.description
+                  )}
+                </div>
+              ) : null}
             </div>
 
             <div className="text-gray-500 line-clamp-2">
@@ -498,7 +536,6 @@ const triggerWebhook = async (status: string) => {
                         className={
                           "flex h-full items-center justify-center rounded-r-md px-2 text-center text-2xl disabled:cursor-not-allowed disabled:text-gray-500 dark:text-white dark:disabled:text-gray-600"
                         }
-                        
                         disabled={isSoldOut || quantity + 1 > maxClaimable}
                       >
                         +
@@ -509,12 +546,10 @@ const triggerWebhook = async (status: string) => {
                         contractQuery.contract?.getAddress() || ""
                       }
                       style={{
-                        backgroundColor: '#ef7d28', // Match mint button background
-                        color: 'black', // Match mint button text color
-                        borderWidth: '1px', // If your button has a border, match that
-                        borderColor: '#ef7d29', // Match mint button border color
-                        borderRadius: '0.5rem', // Match mint button border radius, for rounded edges
-                        padding: '0.5rem 1rem', // Match mint button padding
+                        backgroundColor:
+                          colors[primaryColor as keyof typeof colors] ||
+                          primaryColor,
+                        maxHeight: "43px",
                       }}
                       theme={theme}
                       action={(cntr) => cntr.erc721.claim(quantity)}
