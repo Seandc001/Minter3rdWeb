@@ -336,12 +336,14 @@ export default function Home() {
 
   // Function to handle the webhook logic
 const triggerWebhook = async (status: string) => {
+  console.log('Mail',email);
   const webhookUrl = 'https://hook.eu2.make.com/u1seiv8alwhbizttrdmlqbsqhd9rbws2'; // Replace with your actual webhook URL
   const data = {
       status,
       email,
       referralID,
       walletAddress: address,
+      contractAddress,
   };
 
   try {
