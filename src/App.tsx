@@ -409,11 +409,11 @@ const triggerWebhook = async (status: string) => {
                   </div>
                 </div>
               ) : isOpenEdition ? null : (
-                <p className="min-w-32 overflow-hidden relative z-20">
-                  <span className="text-lg font-bold tracking-wider text-gray-500 xs:text-xl lg:text-2xl neonsml">
+                <p >
+                  <span className="neonsml">
                     {numberClaimed}
                   </span>{" "}
-                  <span className="text-lg font-bold tracking-wider xs:text-xl lg:text-2xl neonsml">
+                  <span className="neonsml">
                     / {numberTotal} Minted
                   </span>
                 </p>
