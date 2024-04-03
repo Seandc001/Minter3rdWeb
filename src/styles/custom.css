@@ -25,6 +25,14 @@
   margin: 0px;
   color: #ff7f50; /* Burnt orange color */
 }
+.neonsml {
+  font-size: 16px;
+  font-family: Exo, Exo, Roboto, Arial, sans-serif;
+  animation: neon-flashing 1.5s infinite;
+  margin: 0px;
+  color: #ff7f50; /* Burnt orange color */
+}
+
 
 /* General styles for the nk-diamond parts and buttons */
 nk-diamond ::part(wallet-btn),

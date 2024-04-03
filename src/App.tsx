@@ -396,7 +396,7 @@ const triggerWebhook = async (status: string) => {
     <div className="container">
      
       
-          <div className="flex flex-col gap-3  p-2 ">
+          <div className="flex flex-col gap-7  p-2 ">
 
             <div className="flex flex-col gap-2 xs:gap-4">
               {isLoading ? (
@@ -409,12 +409,12 @@ const triggerWebhook = async (status: string) => {
                   </div>
                 </div>
               ) : isOpenEdition ? null : (
-                <p>
-                  <span className="text-lg font-bold tracking-wider text-gray-500 xs:text-xl lg:text-2xl">
+                <p className="min-w-32 overflow-hidden relative z-20">
+                  <span className="text-lg font-bold tracking-wider text-gray-500 xs:text-xl lg:text-2xl neonsml">
                     {numberClaimed}
                   </span>{" "}
-                  <span className="text-lg font-bold tracking-wider xs:text-xl lg:text-2xl">
-                    / {numberTotal} minted
+                  <span className="text-lg font-bold tracking-wider xs:text-xl lg:text-2xl neonsml">
+                    / {numberTotal} Minted
                   </span>
                 </p>
               )}
