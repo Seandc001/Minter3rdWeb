@@ -396,7 +396,7 @@ const triggerWebhook = async (status: string) => {
     <div className="container">
      
       
-          <div className="flex flex-col gap-4  p-10  ">
+          <div className="flex flex-col gap-3  p-2 ">
 
             <div className="flex flex-col gap-2 xs:gap-4">
               {isLoading ? (
