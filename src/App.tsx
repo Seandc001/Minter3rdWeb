@@ -371,13 +371,13 @@ const triggerWebhook = async (status: string) => {
     triggerWebhook('failure');
   };
 
-  //End SDC Code Add first header lg:flex
+  //End SDC Code Add first header lg:flex mx-auto max-w-md grid h-screen grid-cols-1 lg:grid-cols-12
 
   return (
-    <div className="mx-auto max-w-md">
+    <div className="container">
       <ConnectWallet className=" justify-center "  />
-      <div className="grid h-screen grid-cols-1 lg:grid-cols-12">
-        <div className="items-center justify-center hidden w-full h-full lg:col-span-5 lg:hidden lg:px-12">
+      <div className="containermain">
+        <div className="nftimghide">
           <HeadingImage
             src={contractMetadata.data?.image || firstNft?.metadata.image || ""}
             isLoading={isLoading}
@@ -402,7 +402,7 @@ const triggerWebhook = async (status: string) => {
                     contractMetadata.data?.name
                   )}
                 </div>
-            <div className="flex w-full mt-8 xs:mb-8 xs:mt-0 lg:hidden">
+            <div className="nftimg">
               <HeadingImage
                 src={contractMetadata.data?.image || firstNft?.metadata.image || ""}
                 isLoading={isLoading}
