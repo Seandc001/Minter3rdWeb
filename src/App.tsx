@@ -30,7 +30,9 @@ import './styles/custom.css';
 
 
 const urlParams = new URL(window.location.toString()).searchParams;
-const contractAddress = urlParams.get("contract") || contractConst || "";
+const contractAddressFromURL = urlParams.get("contract");
+const contractAddress = contractAddressFromURL || window.contractAddress || contractConst || "";
+
 const primaryColor =
   urlParams.get("primaryColor") || primaryColorConst || undefined;
 
@@ -306,7 +308,7 @@ export default function Home() {
   //New code SDC
   // State for email and referral ID
   const [email, setEmail] = useState('');
-  const referralID = urlParams.get('referralID') || '';
+  const referralID = window.referralID || '';
 
   // Validation for the email
   const isEmailValid = useMemo(() => {
