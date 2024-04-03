@@ -395,18 +395,8 @@ const triggerWebhook = async (status: string) => {
   return (
     <div className="container">
       <ConnectWallet className=" justify-center "  />
-      <div className="containermain">
-        <div className="nftimghide">
-          <HeadingImage
-            src={contractMetadata.data?.image || firstNft?.metadata.image || ""}
-            isLoading={isLoading}
-          />
-        </div>
-        
-
-        <div className="flex items-center justify-center w-full h-full col-span-1 lg:col-span-7">
+      
           <div className="flex flex-col w-full max-w-xl gap-4 p-12 rounded-xl lg:border lg:border-gray-400 lg:dark:border-gray-800">
-            
 
             <div className="flex flex-col gap-2 xs:gap-4">
               {isLoading ? (
@@ -551,9 +541,6 @@ const triggerWebhook = async (status: string) => {
               )}
             </div>
           </div>
-        </div>
-      </div>
-      <PoweredBy />
     </div>
   );
 }
