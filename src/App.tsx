@@ -27,7 +27,7 @@ import {
 } from "./consts/parameters";
 
 import './styles/custom.css'; 
-
+//import { clerkClient } from '@clerk/nextjs';
 
 
 
@@ -67,6 +67,7 @@ export default function Home() {
 
 
   const contractQuery = useContract(contractAddress);
+  console.log('contractQuery', contractQuery.contract);
   const contractMetadata = useContractMetadata(contractQuery.contract);
   const { toast } = useToast();
   let theme = (urlParams.get("theme") || themeConst || "light") as
@@ -96,7 +97,9 @@ export default function Home() {
     },
   );
   const unclaimedSupply = useUnclaimedNFTSupply(contractQuery.contract);
+  console.log('unclaimedSupply', unclaimedSupply);
   const claimedSupply = useClaimedNFTSupply(contractQuery.contract);
+  console.log('claimedSupply', claimedSupply);
   const { data: firstNft, isLoading: firstNftLoading } = useNFT(
     contractQuery.contract,
     0,
@@ -337,7 +340,7 @@ export default function Home() {
   // Function to handle the webhook logic
 const triggerWebhook = async (status: string) => {
   console.log('Mail',email);
-  const webhookUrl = 'https://hook.eu2.make.com/u1seiv8alwhbizttrdmlqbsqhd9rbws2'; // Replace with your actual webhook URL
+  const webhookUrl = 'https://hook.eu2.make.com/u1seiv8alwhbizttrdmlqbsqhd9rbws2'; 
   const data = {
       status,
       email,
@@ -373,9 +376,9 @@ const triggerWebhook = async (status: string) => {
   const handleSuccess = () => {
     toast({
       title: 'Successfully minted',
-      description: 'The NFT has been transferred to your wallet',
+      description: 'The NFT has been transferred to your wallet. Remember to join our channels!',
       duration: 5000,
-      className: 'bg-green-500',
+      className: 'bg-black',
     });
     triggerWebhook('success');
   };
@@ -418,6 +421,10 @@ const triggerWebhook = async (status: string) => {
                   <span className="neonsml">
                     / {numberTotal} Minted
                   </span>
+                  <span className="neonsml">
+                    &nbsp;- {priceToMint} 
+                  </span>
+                  
                 </p>
               )}
               
@@ -456,7 +463,7 @@ const triggerWebhook = async (status: string) => {
               ) : (
                     <div className="flex flex-col w-full gap-4">
                       <div className="flex flex-col w-full gap-4 lg:flex-row lg:items-center lg:gap-4 ">
-                        <div className="flex w-full px-2 border border-gray-400 rounded-lg h-11 dark:border-gray-800 md:w-full ">
+                        <div className="flex w-full px-2  rounded-lg h-11 dark:border-gray-800 md:w-full ">
                       <button
                         onClick={() => {
                           const value = quantity - 1;
@@ -473,7 +480,7 @@ const triggerWebhook = async (status: string) => {
                       >
                         -
                       </button>
-                          <p className="flex items-center justify-center w-full h-full font-mono text-center dark:text-white lg:w-full burnt-orange-border ">
+                          <p className="flex items-center justify-center w-full px-2 h-full font-mono text-center dark:text-white lg:w-full burnt-orange-border ">
                         {!isLoading && isSoldOut ? "Sold Out" : quantity}
                       </p>
                       <button
@@ -488,7 +495,7 @@ const triggerWebhook = async (status: string) => {
                           }
                         }}
                         className={
-                          "flex h-full items-center justify-center rounded-r-md px-2 text-center text-2xl disabled:cursor-not-allowed disabled:text-gray-500 dark:text-white dark:disabled:text-gray-600 burnt-orange-border "
+                          "flex h-full items-center justify-center rounded-r-md px-4 text-center text-2xl disabled:cursor-not-allowed disabled:text-gray-500 dark:text-white dark:disabled:text-gray-600 burnt-orange-border "
                         }
                         
                         disabled={isSoldOut || quantity + 1 > maxClaimable}

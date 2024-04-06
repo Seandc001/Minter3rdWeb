@@ -30,7 +30,7 @@ import './styles/custom.css';
 
 
 
-
+const contractAddressFromURL = urlParams.get("contract");
 const urlParams = new URL(window.location.toString()).searchParams;
 const initialContractAddress = urlParams.get("contract") || window.contractAddress || contractConst;
 
