@@ -450,7 +450,7 @@ const triggerWebhook = async (status: string) => {
               
             </div>
             
-            <div className="flex w-full gap-4">
+            <div className="flex w-full gap-4 md:w-full">
               {dropNotReady ? (
                 <span className="text-red-500">
                   This drop is not ready to be minted yet. (No claim condition
@@ -480,7 +480,7 @@ const triggerWebhook = async (status: string) => {
                       >
                         -
                       </button>
-                          <p className="flex items-center justify-center w-full h-full font-mono text-center dark:text-white lg:w-full burnt-orange-border ">
+                          <p className="flex items-center justify-center px-2 w-full h-full font-mono text-center dark:text-white lg:w-full burnt-orange-border ">
                         {!isLoading && isSoldOut ? "Sold Out" : quantity}
                       </p>
                       <button
